@@ -16,15 +16,10 @@ for i in range(vels.size):
     energies[i] = 0.5 * J * (vels[i]**2)
 
 for i in range(1, energies.size):
-    powers[i] = (energies[i] - energies[i - 1]) / float(times[i])
+    powers[i] = (energies[i] - energies[i - 1]) / times[i]
 
 for i in range(1, times.size):
     times[i] = times[i - 1] + times[i]
-
-print times
-print vels
-print energies
-print powers
 
 plt.figure()
 plt.grid()
