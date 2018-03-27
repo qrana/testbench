@@ -4,7 +4,7 @@ unsigned long int new_time;
 int count;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   digitalWrite(SIGNAL_PIN, HIGH); 
   //Serial.println("Heimoi");
   previous_time = 0;
