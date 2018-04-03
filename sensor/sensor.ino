@@ -11,21 +11,24 @@ void setup() {
   new_time = 0;
   count = 0;
   attachInterrupt(digitalPinToInterrupt(SIGNAL_PIN), isr_counter, RISING);
+  pinMode(13, OUTPUT);
 }
 
 void loop() {
   if (new_time != previous_time)
   {
+    digitalWrite(13, HIGH);
     Serial.print(new_time - previous_time);
     Serial.println();
     previous_time = new_time;
+    digitalWrite(13, LOW);
   }
 }
 
 // interrupt service routine
 void isr_counter(){
   ++count;
-  if (count >= 20)
+  if (count >= 2)
   {
     new_time = micros();
     count = 0;

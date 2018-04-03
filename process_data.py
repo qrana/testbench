@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # CONSTANTS
 J = 1
 
-times = np.genfromtxt("test_bench_output.csv") / 1000000.0
+times = np.genfromtxt("test_bench_output4.csv") / 1000000.0
 vels = np.zeros(times.size)
 energies = np.zeros(times.size)
 powers = np.zeros(times.size)
@@ -17,6 +17,14 @@ for i in range(vels.size):
 
 for i in range(1, energies.size):
     powers[i] = (energies[i] - energies[i - 1]) / times[i]
+
+for i in range(5, powers.size):
+    powers[i] = np.average(powers[i - 5:i])
+
+plt.figure()
+plt.grid()
+plt.plot(times)
+plt.show()
 
 for i in range(1, times.size):
     times[i] = times[i - 1] + times[i]
