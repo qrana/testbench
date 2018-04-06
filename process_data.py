@@ -1,10 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 # CONSTANTS
 J = 1
 
-times = np.genfromtxt("test_bench_output4.csv") / 1000000.0
+filename = "test_bench_output.csv"
+path = os.getcwd()
+filename = path + "/" + filename
+times = np.genfromtxt(os.path.join(os.path.expanduser('~'), filename)) / 1000000.0
 vels = np.zeros(times.size)
 energies = np.zeros(times.size)
 powers = np.zeros(times.size)
