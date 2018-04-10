@@ -61,7 +61,7 @@ void MainWindow::processData()
     args<<script;
 
     OProcess.start(Command,args); //Starts execution of command
-    OProcess.waitForFinished();  //Waits for execution to complete
+    OProcess.waitForFinished(-1);  //Waits for execution to complete
 
     QString StdOut = OProcess.readAllStandardOutput();  //Reads standard output
     QString StdError = OProcess.readAllStandardError();   //Reads standard error
@@ -86,7 +86,7 @@ void MainWindow::read()
     args<<script;
 
     OProcess.start(Command,args); //Starts execution of command
-    OProcess.waitForFinished();  //Waits for execution to complete
+    OProcess.waitForFinished(-1);  //Waits for execution to complete
 
     QString StdOut = OProcess.readAllStandardOutput();  //Reads standard output
     QString StdError = OProcess.readAllStandardError();   //Reads standard error
