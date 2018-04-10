@@ -18,7 +18,7 @@ void loop() {
   if (new_time != previous_time)
   {
     digitalWrite(13, HIGH);
-    Serial.print(new_time - previous_time);
+    Serial.print((unsigned int) new_time - previous_time);
     Serial.println();
     previous_time = new_time;
     digitalWrite(13, LOW);
