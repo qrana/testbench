@@ -6,9 +6,10 @@ import os
 J = 1
 
 filename = "test_bench_output.csv"
-path = os.getcwd()
-filename = path + "/" + filename
-times = np.genfromtxt(os.path.join(os.path.expanduser('~'), filename)) / 1000000.0
+# path = os.getcwd()
+# filename = path + "/" + filename
+# times = np.genfromtxt(os.path.join(os.path.expanduser('~'), filename)) / 1000000.0
+times = np.genfromtxt(filename) / 1000000.0
 vels = np.zeros(times.size)
 energies = np.zeros(times.size)
 powers = np.zeros(times.size)
@@ -28,6 +29,7 @@ for i in range(5, powers.size):
 plt.figure()
 plt.grid()
 plt.plot(times)
+plt.title("Times")
 plt.show()
 
 for i in range(1, times.size):
@@ -36,14 +38,17 @@ for i in range(1, times.size):
 plt.figure()
 plt.grid()
 plt.plot(times, vels)
+plt.title("Velocity")
 plt.show()
 
 plt.figure()
 plt.grid()
 plt.plot(times, energies)
+plt.title("Energy")
 plt.show()
 
 plt.figure()
 plt.grid()
 plt.plot(times, powers)
+plt.title("Power")
 plt.show()
