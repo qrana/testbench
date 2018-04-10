@@ -8,7 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     base = "";
-    environment = "python2";
+    environment = "python";
+    readFileName = "serial_reader.py";
+    processFileName = "process_data.py";
 
     ui->setupUi(this);
 
@@ -52,8 +54,8 @@ void MainWindow::processData()
     QString Command;  //Contains the command to be executed
     QStringList args;  //Contains arguments of the command
 
-    QString script(base + "/process_data.py");
-    // QString script = filename;
+    // QString script(base + "/process_data.py");
+    QString script = processFileName;
 
     Command = environment;
     args<<script;
@@ -77,8 +79,8 @@ void MainWindow::read()
     QString Command;  //Contains the command to be executed
     QStringList args;  //Contains arguments of the command
 
-    QString script(base + "/serial_reader.py");
-    // QString script = filename;
+    // QString script(base + "/serial_reader.py");
+    QString script = readFileName;
 
     Command = environment;
     args<<script;
