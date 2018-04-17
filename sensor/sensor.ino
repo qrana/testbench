@@ -1,12 +1,13 @@
+#include <util/atomic.h>
+
 const int SIGNAL_PIN = 3;
-unsigned long int previous_time;
-unsigned long int new_time;
-int count;
+volatile unsigned long int previous_time;
+volatile unsigned long int new_time;
+volatile int count;
 
 void setup() {
   Serial.begin(115200);
   digitalWrite(SIGNAL_PIN, HIGH); 
-  //Serial.println("Heimoi");
   previous_time = 0;
   new_time = 0;
   count = 0;
@@ -15,13 +16,17 @@ void setup() {
 }
 
 void loop() {
-  if (new_time != previous_time)
+  unsigned int diff;
+  
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+  diff = (unsigned int) new_time - previous_time;
+  }
+  
+  if (diff != 0)
   {
-    digitalWrite(13, HIGH);
-    Serial.print((unsigned int) new_time - previous_time);
-    Serial.println();
     previous_time = new_time;
-    digitalWrite(13, LOW);
+    Serial.println();
+    Serial.print(diff);
   }
 }
 
