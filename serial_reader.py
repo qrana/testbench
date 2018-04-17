@@ -1,6 +1,6 @@
 import serial
 
-FILENAME = "test_bench_output.csv"
+FILENAME = "test_bench_output_2.csv"
 
 ser = serial.Serial('COM8', 115200, timeout=10)
 print(ser.name)
