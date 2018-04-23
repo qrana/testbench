@@ -1,6 +1,7 @@
 #include <util/atomic.h>
 
 const int SIGNAL_PIN = 3;
+const int ANALOG_PIN = 1;
 volatile unsigned long int previous_time;
 volatile unsigned long int new_time;
 volatile int count;
@@ -25,8 +26,11 @@ void loop() {
   if (diff != 0)
   {
     previous_time = new_time;
+    uint8_t lambda = (uint8_t)analogRead(ANALOG_PIN) / 4;
     Serial.println();
     Serial.print(diff);
+    Serial.println();
+    Serial.print(lambda);
   }
 }
 

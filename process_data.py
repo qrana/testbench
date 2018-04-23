@@ -5,14 +5,16 @@ import os
 # CONSTANTS
 J = 1
 
-filename = "test_bench_output.csv"
-filename2 = "test_bench_output_2.csv"
+filename_time = "test_bench_output_time.csv"
+filename_time2 = "test_bench_output_2_time.csv"
+filename_lambda = "test_bench_output_lambda.csv"
+filename_lambda2 = "test_bench_output_2_lambda.csv"
 # path = os.getcwd()
-# filename = path + "/" + filename
-# times = np.genfromtxt(os.path.join(os.path.expanduser('~'), filename)) / 1000000.0
+# filename_time = path + "/" + filename_time
+# times = np.genfromtxt(os.path.join(os.path.expanduser('~'), filename_time)) / 1000000.0
 
-def get_processed_data(filename, start_offset=0, end_offset=0):
-    filtered_times = np.genfromtxt(filename) / 1000000.0
+def get_processed_data(filename_time, start_offset=0, end_offset=0):
+    filtered_times = np.genfromtxt(filename_time) / 1000000.0
     times = np.zeros(filtered_times.size)
     vels = np.zeros(times.size)
     energies = np.zeros(times.size)
@@ -47,38 +49,69 @@ def get_processed_data(filename, start_offset=0, end_offset=0):
     
     return times, vels, energies, powers
 
-times, vels, energies, powers = get_processed_data(filename, 20, 20)
-times2, vels2, energies2, powers2 = get_processed_data(filename2, 20, 20)
+def get_lambda_data(filename_lambda, start_offset = 0, end_offset = 0):
+    unaveraged_lambdas = np.genfromtxt(filename_lambda)
+    lambdas = np.zeros(unaveraged_lambdas.size)
+    for i in range(20 + start_offset, unaveraged_lambdas.size - end_offset):
+        lambdas[i] = np.average(unaveraged_lambdas[i - 20:i])
+    return lambdas
+
+times, vels, energies, powers = get_processed_data(filename_time, 20, 20)
+#times2, vels2, energies2, powers2 = get_processed_data(filename_time2, 20, 20)
+lambdas = get_lambda_data(filename_lambda, 10, 30)
+#lambdas2 = get_lambda_data(filename_lambda2)
+times2 = []
+vels2 = []
+energies2 = []
+powers2 = []
+lambdas2 = []
 
 plt.figure()
 plt.grid()
-plt.plot(times, vels, label=filename)
-plt.plot(times2, vels2, label=filename2)
+plt.plot(times, vels, label=filename_time)
+#plt.plot(times2, vels2, label=filename_time2)
 plt.title("Velocity")
 plt.legend()
 plt.show()
 
 plt.figure()
 plt.grid()
-plt.plot(times, energies, label=filename)
-plt.plot(times2, energies2, label=filename2)
+plt.plot(times, energies, label=filename_time)
+#plt.plot(times2, energies2, label=filename_time2)
 plt.title("Energy")
 plt.legend()
 plt.show()
 
 plt.figure()
 plt.grid()
-plt.plot(times, powers, label=filename)
-plt.plot(times2, powers2, label=filename2)
+plt.plot(times, powers, label=filename_time)
+#plt.plot(times2, powers2, label=filename_time2)
 plt.title("Power")
 plt.legend()
 plt.show()
 
 plt.figure()
 plt.grid()
-plt.plot(vels, powers, label=filename)
-plt.plot(vels2, powers2, label=filename2)
+plt.plot(times, lambdas, label=filename_lambda)
+#plt.plot(times2, lambdas2, label=filename_lambda2)
+plt.title("Lambda")
+plt.legend()
+plt.show()
+
+plt.figure()
+plt.grid()
+plt.plot(vels, powers, label=filename_time)
+#plt.plot(vels2, powers2, label=filename_time2)
 plt.ylim(ymin=0)
 plt.title("Power vs velocity")
+plt.legend()
+plt.show()
+
+plt.figure()
+plt.grid()
+plt.plot(vels, lambdas, label=filename_lambda)
+#plt.plot(vels2, lambdas2, label=filename_lambda2)
+plt.ylim(ymin=0)
+plt.title("Lambda vs velocity")
 plt.legend()
 plt.show()
