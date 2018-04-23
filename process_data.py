@@ -4,6 +4,7 @@ import os
 
 # CONSTANTS
 J = 1
+n_per_rev = 10.0
 
 filename_time = "test_bench_output_time.csv"
 filename_time2 = "test_bench_output_2_time.csv"
@@ -33,7 +34,7 @@ def get_processed_data(filename_time, start_offset=0, end_offset=0):
         times[i] = np.average(filtered_times[i - 20:i])
 
     for i in range(20 + start_offset, times.size - end_offset):
-        vels[i] = 2 * np.pi / times[i]
+        vels[i] = 141/18.0 * 22/49.5 * 29/20.0 *60 / times[i] / n_per_rev
 
     for i in range(20 + start_offset, vels.size - end_offset):
         energies[i] = 0.5 * J * (vels[i]**2)
@@ -53,7 +54,7 @@ def get_lambda_data(filename_lambda, start_offset = 0, end_offset = 0):
     unaveraged_lambdas = np.genfromtxt(filename_lambda)
     lambdas = np.zeros(unaveraged_lambdas.size)
     for i in range(20 + start_offset, unaveraged_lambdas.size - end_offset):
-        lambdas[i] = np.average(unaveraged_lambdas[i - 20:i])
+        lambdas[i] = np.average(unaveraged_lambdas[i - 20:i]) / 255.0 / 1.023 + 0.5
     return lambdas
 
 times, vels, energies, powers = get_processed_data(filename_time, 20, 20)
