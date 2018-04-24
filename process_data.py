@@ -1,15 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import sys
 
 # CONSTANTS
 J = 1
 n_per_rev = 10.0
 
-filename_time = "test_bench_output_time.csv"
-filename_time2 = "test_bench_output_2_time.csv"
-filename_lambda = "test_bench_output_lambda.csv"
-filename_lambda2 = "test_bench_output_2_lambda.csv"
+filename = sys.argv[1]
+filename = filename.split(".")
+filename_base = filename[0]
+filename_end = filename[1]
+
+filename_time = filename_base + "_time." + filename_end
+filename_lambda = filename_base + "_lambda." + filename_end
+
+# filename_time = "test_bench_output_time.csv"
+# filename_time2 = "test_bench_output_2_time.csv"
+# filename_lambda = "test_bench_output_lambda.csv"
+# filename_lambda2 = "test_bench_output_2_lambda.csv"
 # path = os.getcwd()
 # filename_time = path + "/" + filename_time
 # times = np.genfromtxt(os.path.join(os.path.expanduser('~'), filename_time)) / 1000000.0

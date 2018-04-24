@@ -1,6 +1,13 @@
 import serial
+import sys
 
-FILENAME = "test_bench_output"
+# FILENAME = "test_bench_output"
+filename = sys.argv[1]
+filename = filename.split(".")
+filename_base = filename[0]
+filename_end = filename[1]
+FILENAME = filename_base
+print(filename_base + "." + filename_end)
 
 ser = serial.Serial('COM8', 115200, timeout=10)
 print(ser.name)
@@ -30,10 +37,10 @@ for line in time_data:
 for line in lambda_data:
     print(line)
 
-with open(FILENAME + "_time.csv", 'w') as file:
+with open(FILENAME + "_time." + filename_end, 'w') as file:
     for line in time_data:
         file.write(line + "\n")
 
-with open(FILENAME + "_lambda.csv", 'w') as file:
+with open(FILENAME + "_lambda." + filename_end, 'w') as file:
     for line in lambda_data:
         file.write(line + "\n")

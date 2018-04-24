@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     base = "";
     environment = "python";
-    readFileName = "serial_reader.py";
-    processFileName = "process_data.py";
+    readFileName = "";
+    processFileName = "";
 
     ui->setupUi(this);
 
@@ -28,8 +28,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSelect_process_file, SIGNAL(triggered(bool)),
             this, SLOT(changeProcessFileName()));
 
+    connect(ui->destinationButton, SIGNAL(clicked(bool)),
+            this, SLOT(changeReadFileName()));
+
     connect(ui->actionSelect_read_file, SIGNAL(triggered(bool)),
             this, SLOT(changeReadFileName()));
+
+    connect(ui->sourceFileButton, SIGNAL(clicked(bool)),
+            this, SLOT(changeProcessFileName()));
 
     connect(ui->actionSelect_environment, SIGNAL(triggered(bool)),
             this, SLOT(changeEnvironment()));
@@ -55,7 +61,7 @@ void MainWindow::processData()
     QStringList args;  //Contains arguments of the command
 
     // QString script(base + "/process_data.py");
-    QString script = processFileName;
+    QString script = "process_data.py " + processFileName;
 
     Command = environment;
     args<<script;
@@ -80,7 +86,7 @@ void MainWindow::read()
     QStringList args;  //Contains arguments of the command
 
     // QString script(base + "/serial_reader.py");
-    QString script = readFileName;
+    QString script = "serial_reader.py " + readFileName;
 
     Command = environment;
     args<<script;
@@ -103,7 +109,8 @@ void MainWindow::changeReadFileName()
     readFileName = QFileDialog::getOpenFileName(this,
                                             "Choose Filename to Run",
                                             "",
-                                            ".py files (*.py);;All files (*.*)");
+                                            ".csv files (*.csv);;All files (*.*)");
+    ui->destinationFileLabel->setText(readFileName);
 }
 
 void MainWindow::changeProcessFileName()
@@ -111,7 +118,8 @@ void MainWindow::changeProcessFileName()
     processFileName = QFileDialog::getOpenFileName(this,
                                             "Choose Filename to Run",
                                             "",
-                                            ".py files (*.py);;All files (*.*)");
+                                            ".csv files (*.csv);;All files (*.*)");
+    ui->sourceFileLabel->setText(processFileName);
 }
 
 void MainWindow::changeEnvironment()
