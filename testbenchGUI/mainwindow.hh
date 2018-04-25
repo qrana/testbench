@@ -22,6 +22,8 @@ public slots:
 
     void read();
 
+    void changeFileName();
+
     void changeReadFileName();
 
     void changeProcessFileName();
@@ -36,6 +38,7 @@ private:
     QString environment;
     QString base;
 
+    QString filename;
     QString readFileName;
     QString processFileName;
 };

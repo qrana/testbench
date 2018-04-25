@@ -9,8 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     base = "";
     environment = "python";
-    readFileName = "";
-    processFileName = "";
+    filename = "test_bench_output.csv";
+    readFileName = "serial_reader.py";
+    processFileName = "process_data.py";
 
     ui->setupUi(this);
 
@@ -28,14 +29,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSelect_process_file, SIGNAL(triggered(bool)),
             this, SLOT(changeProcessFileName()));
 
-    connect(ui->destinationButton, SIGNAL(clicked(bool)),
-            this, SLOT(changeReadFileName()));
+    connect(ui->filenameLineEdit, SIGNAL(editingFinished()),
+            this, SLOT(changeFileName()));
 
     connect(ui->actionSelect_read_file, SIGNAL(triggered(bool)),
             this, SLOT(changeReadFileName()));
 
-    connect(ui->sourceFileButton, SIGNAL(clicked(bool)),
-            this, SLOT(changeProcessFileName()));
+//    connect(ui->sourceFileButton, SIGNAL(clicked(bool)),
+//            this, SLOT(changeProcessFileName()));
 
     connect(ui->actionSelect_environment, SIGNAL(triggered(bool)),
             this, SLOT(changeEnvironment()));
@@ -61,11 +62,12 @@ void MainWindow::processData()
     QStringList args;  //Contains arguments of the command
 
     // QString script(base + "/process_data.py");
-    QString script = "process_data.py " + processFileName;
+    QString script = "process_data.py";
 
     Command = environment;
     args<<script;
 
+    OProcess.setNativeArguments("\"" + filename + "\"");
     OProcess.start(Command,args); //Starts execution of command
     OProcess.waitForFinished(-1);  //Waits for execution to complete
 
@@ -86,11 +88,12 @@ void MainWindow::read()
     QStringList args;  //Contains arguments of the command
 
     // QString script(base + "/serial_reader.py");
-    QString script = "serial_reader.py " + readFileName;
+    QString script = "serial_reader.py";
 
     Command = environment;
     args<<script;
 
+    OProcess.setNativeArguments("\"" + filename + "\"");
     OProcess.start(Command,args); //Starts execution of command
     OProcess.waitForFinished(-1);  //Waits for execution to complete
 
@@ -104,13 +107,17 @@ void MainWindow::read()
     ui->outputTextEdit->setPlainText(output);
 }
 
+void MainWindow::changeFileName()
+{
+    filename = ui->filenameLineEdit->text();
+}
+
 void MainWindow::changeReadFileName()
 {
     readFileName = QFileDialog::getOpenFileName(this,
-                                            "Choose Filename to Run",
-                                            "",
-                                            ".csv files (*.csv);;All files (*.*)");
-    ui->destinationFileLabel->setText(readFileName);
+                                                "Choose Filename to Run",
+                                                "",
+                                                ".csv files (*.csv);;All files (*.*)");
 }
 
 void MainWindow::changeProcessFileName()
@@ -119,7 +126,6 @@ void MainWindow::changeProcessFileName()
                                             "Choose Filename to Run",
                                             "",
                                             ".csv files (*.csv);;All files (*.*)");
-    ui->sourceFileLabel->setText(processFileName);
 }
 
 void MainWindow::changeEnvironment()

@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>80</y>
+      <y>110</y>
       <width>91</width>
       <height>24</height>
      </rect>
@@ -30,9 +30,9 @@
    <widget class="QPlainTextEdit" name="outputTextEdit">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>140</x>
       <y>160</y>
-      <width>291</width>
+      <width>281</width>
       <height>151</height>
      </rect>
     </property>
@@ -41,7 +41,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>10</y>
+      <y>70</y>
       <width>80</width>
       <height>24</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QPushButton" name="clearButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>280</y>
+      <x>30</x>
+      <y>270</y>
       <width>80</width>
       <height>24</height>
      </rect>
@@ -76,56 +76,27 @@
      <string>Output</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="destinationButton">
+   <widget class="QLineEdit" name="filenameLineEdit">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>10</y>
-      <width>151</width>
-      <height>24</height>
+      <y>30</y>
+      <width>281</width>
+      <height>22</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Select Destination File</string>
-    </property>
    </widget>
-   <widget class="QLabel" name="destinationFileLabel">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>10</y>
-      <width>111</width>
+      <x>30</x>
+      <y>30</y>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;no file selected&gt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="sourceFileButton">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>80</y>
-      <width>131</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Select Source File</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="sourceFileLabel">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>80</y>
-      <width>111</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;no file selected&gt;</string>
+     <string>Filename:</string>
     </property>
    </widget>
   </widget>
@@ -135,7 +106,7 @@
      <x>0</x>
      <y>0</y>
      <width>481</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSettings">
